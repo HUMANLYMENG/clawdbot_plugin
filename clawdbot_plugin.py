@@ -64,7 +64,7 @@ class clawdbot_plugin(NcatBotPlugin):
 
     def check_permission(self, event: BaseMessageEvent) -> bool:
         """
-        检查权限：只允许特定用户的私聊
+        检查权限：可选限制特定用户的私聊
         
         :param event: 消息事件
         :return: True 如果有权限，False 否则
