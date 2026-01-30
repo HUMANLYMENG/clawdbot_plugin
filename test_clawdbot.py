@@ -7,11 +7,12 @@ Clawdbot 插件独立测试脚本
 import asyncio
 import aiohttp
 import json
+import os
 import sys
 
 # Clawdbot Gateway 配置
-CLAWDBOT_GATEWAY_URL = "http://127.0.0.1:18789"
-CLAWDBOT_TOKEN = "<CLAWDBOT_TOKEN>"
+CLAWDBOT_GATEWAY_URL = os.getenv("CLAWDBOT_GATEWAY_URL", "http://127.0.0.1:18789")
+CLAWDBOT_TOKEN = os.getenv("CLAWDBOT_TOKEN", "")
 
 
 async def test_connection():
@@ -232,6 +233,11 @@ async def test_chinese():
 
 async def main():
     """主测试函数"""
+    if not CLAWDBOT_TOKEN:
+        print("❌ 未设置 CLAWDBOT_TOKEN 环境变量，无法进行测试。")
+        print("请先设置：export CLAWDBOT_TOKEN=\"<your_token>\"")
+        return 1
+
     print("\n" + "🚀" * 30)
     print("Clawdbot 插件独立测试")
     print("🚀" * 30 + "\n")

@@ -3,10 +3,20 @@
 ## ✅ 已完成的配置
 
 1. ✅ Clawdbot Gateway HTTP API 已启用
-2. ✅ Token 已配置正确：`<CLAWDBOT_TOKEN>`
+2. ✅ Token 已配置到环境变量
 3. ✅ API 测试成功
 
 ## 🚀 如何使用
+
+### 0. 配置环境变量
+
+在启动 ncatbot 之前设置：
+
+```bash
+export CLAWDBOT_TOKEN="<your_token>"
+export CLAWDBOT_GATEWAY_URL="http://127.0.0.1:18789"  # 可选
+export CLAWDBOT_ALLOWED_PRIVATE_USER_ID="<your_qq_id>" # 可选
+```
 
 ### 1. 重启你的 QQ 机器人
 
@@ -15,8 +25,8 @@
 ```bash
 # 停止当前运行的机器人（按 Ctrl+C）
 # 然后重新启动
-cd /path/to/Documents/ncatbot/main
-sudo /path/to/Documents/ncatbot/botenv/bin/python catbot_event.py
+cd /path/to/ncatbot/main
+sudo /path/to/ncatbot/botenv/bin/python catbot_event.py
 ```
 
 ### 2. 在 QQ 中测试
@@ -73,7 +83,7 @@ sudo /path/to/Documents/ncatbot/botenv/bin/python catbot_event.py
 如果 Clawdbot 响应较慢，可以编辑插件文件增加超时：
 
 ```bash
-nano /path/to/Documents/ncatbot/main/plugins/clawdbot_plugin/clawdbot_plugin.py
+nano /path/to/ncatbot/main/plugins/clawdbot_plugin/clawdbot_plugin.py
 ```
 
 找到这一行：
@@ -106,7 +116,8 @@ timeout=aiohttp.ClientTimeout(total=120)
 
 2. HTTP API 是否启用？（已完成 ✅）
 
-3. Token 是否正确？（已完成 ✅）
+3. Token 是否正确？
+   - 请检查 `CLAWDBOT_TOKEN` 是否已设置
 
 ### 问题：超时
 

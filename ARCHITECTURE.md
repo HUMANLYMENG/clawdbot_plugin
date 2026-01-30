@@ -176,7 +176,7 @@ except Exception as e:
 ## 🔧 配置文件
 
 ### Clawdbot Gateway 配置
-位置：`/path/to/.clawdbot/clawdbot.json`
+位置：`~/.clawdbot/clawdbot.json`
 
 关键配置：
 ```json
@@ -199,12 +199,12 @@ except Exception as e:
 ```
 
 ### 插件配置
-位置：`/path/to/Documents/ncatbot/main/plugins/clawdbot_plugin/clawdbot_plugin.py`
+位置：`/path/to/ncatbot/main/plugins/clawdbot_plugin/clawdbot_plugin.py`
 
-关键常量：
-```python
-CLAWDBOT_GATEWAY_URL = "http://127.0.0.1:18789"
-CLAWDBOT_TOKEN = "<CLAWDBOT_TOKEN>"
+关键环境变量：
+```bash
+export CLAWDBOT_GATEWAY_URL="http://127.0.0.1:18789"
+export CLAWDBOT_TOKEN="<CLAWDBOT_TOKEN>"
 ```
 
 ## 🚀 扩展可能性

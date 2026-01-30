@@ -1,4 +1,5 @@
 import logging
+import os
 import asyncio
 import aiohttp
 from typing import Optional
@@ -12,17 +13,17 @@ from ncatbot.core.event import BaseMessageEvent
 logger = logging.getLogger("clawdbot_plugin")
 
 # Clawdbot Gateway 配置
-CLAWDBOT_GATEWAY_URL = "http://127.0.0.1:18789"
-CLAWDBOT_TOKEN = "<CLAWDBOT_TOKEN>"
+CLAWDBOT_GATEWAY_URL = os.getenv("CLAWDBOT_GATEWAY_URL", "http://127.0.0.1:18789")
+CLAWDBOT_TOKEN = os.getenv("CLAWDBOT_TOKEN")
 
-# 权限配置：只允许这个用户的私聊
-ALLOWED_PRIVATE_USER_ID = "<PRIVATE_USER_ID>"
+# 权限配置：可选，仅允许特定用户的私聊
+ALLOWED_PRIVATE_USER_ID = os.getenv("CLAWDBOT_ALLOWED_PRIVATE_USER_ID")
 
 
 class clawdbot_plugin(NcatBotPlugin):
     """
     Clawdbot 集成插件
-    仅支持特定用户 (<PRIVATE_USER_ID>) 的私聊
+    可选限制特定用户的私聊（通过环境变量配置）
     """
 
     name = "clawdbot_plugin"
@@ -38,7 +39,12 @@ class clawdbot_plugin(NcatBotPlugin):
         logger.info(f"{self.name} v{self.version} 正在加载...")
 
         # 不在这里创建 session，而是在需要时创建
-        logger.info(f"Clawdbot 插件已加载，仅支持用户 {ALLOWED_PRIVATE_USER_ID} 的私聊")
+        if not CLAWDBOT_TOKEN:
+            logger.warning("CLAWDBOT_TOKEN 未配置，插件将无法请求 Clawdbot。")
+        if ALLOWED_PRIVATE_USER_ID:
+            logger.info(f"Clawdbot 插件已加载，仅支持用户 {ALLOWED_PRIVATE_USER_ID} 的私聊")
+        else:
+            logger.info("Clawdbot 插件已加载，允许所有私聊用户访问")
 
     async def on_unload(self):
         """插件卸载时执行"""
@@ -72,7 +78,7 @@ class clawdbot_plugin(NcatBotPlugin):
             return False
 
         user_id = str(event.user_id)
-        if user_id != ALLOWED_PRIVATE_USER_ID:
+        if ALLOWED_PRIVATE_USER_ID and user_id != ALLOWED_PRIVATE_USER_ID:
             logger.warning(f"拒绝未授权用户: {user_id}")
             return False
 
@@ -99,6 +105,10 @@ class clawdbot_plugin(NcatBotPlugin):
             "user": session_id or f"qq_{user_id}",  # 会话持久化
             "stream": False,
         }
+
+        if not CLAWDBOT_TOKEN:
+            logger.error("CLAWDBOT_TOKEN 未设置，无法访问 Clawdbot。")
+            return None
 
         # 添加自定义 header
         headers = {

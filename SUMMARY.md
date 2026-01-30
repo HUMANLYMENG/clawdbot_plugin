@@ -10,7 +10,7 @@
 
 ### 2. Clawdbot Gateway 配置
 - ✅ 启用了 HTTP API 端点 (`/v1/responses`)
-- ✅ 更新了正确的 Token: `<CLAWDBOT_TOKEN>`
+- ✅ Token 已配置到环境变量
 - ✅ Gateway 已重启并正常运行
 
 ### 3. API 测试
@@ -32,8 +32,8 @@
 # 如果 catbot 正在运行，按 Ctrl+C 停止
 
 # 重新启动
-cd /path/to/Documents/ncatbot/main
-sudo /path/to/Documents/ncatbot/botenv/bin/python catbot_event.py
+cd /path/to/ncatbot/main
+sudo /path/to/ncatbot/botenv/bin/python catbot_event.py
 ```
 
 ### 步骤 2：在 QQ 中测试
@@ -110,9 +110,9 @@ sudo /path/to/Documents/ncatbot/botenv/bin/python catbot_event.py
 
 ## 🔧 配置文件位置
 
-- **插件代码**: `/path/to/Documents/ncatbot/main/plugins/clawdbot_plugin/clawdbot_plugin.py`
-- **Clawdbot 配置**: `/path/to/.clawdbot/clawdbot.json`
-- **文档**: `/path/to/Documents/ncatbot/main/plugins/clawdbot_plugin/`
+- **插件代码**: `/path/to/ncatbot/main/plugins/clawdbot_plugin/clawdbot_plugin.py`
+- **Clawdbot 配置**: `~/.clawdbot/clawdbot.json`
+- **文档**: `/path/to/ncatbot/main/plugins/clawdbot_plugin/`
 
 ## 📊 技术规格
 
