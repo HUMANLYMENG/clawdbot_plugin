@@ -10,6 +10,7 @@ Clawdbot plugin for ncatbot.
 - Async handling
 
 ## Quick Start
+Place this directory under `ncatbot/plugins/`.
 See `QUICKSTART.md` for setup and usage details.
 
 ## Commands
